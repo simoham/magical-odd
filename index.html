@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Static Sudoku Grid</title>
+    <style>
+	.sudoku-board {
+  display: grid;
+  /* Creates 9 columns/rows of equal size */
+  grid-template-columns: repeat({{n*n}}, 1fr);
+  grid-template-rows: repeat({{n*n}}, 1fr);
+  aspect-ratio: 1; /* Keeps the grid square */
+  width: 50vmin; /* Example responsive sizing */
+}
+
+.cell {
+  border: 1px solid #ccc; /* Thin inner borders */
+  text-align: center;
+  /* Add more styling for height/width if not using aspect-ratio or vmin/px */
+}
+
+/* Thicker borders for the 3x3 sections */
+.cell:nth-child(3{{n}}) {
+  border-right: 3px solid black;
+}
+
+.cell:nth-child({{n}}+1):nth-child(-n+{{n*n}}) {
+  border-top: 3px solid black;
+}
+/* More nth-child selectors or wrapping elements are needed for top/bottom thick borders */
+
+    </style>
+</head>
+<body>
+
+	    <table class="sudoku-board">
+  <tbody>
+    {% for item in message["magic"] %}
+    <tr>
+      {% for row in item %}
+      <td class="cell"> {{row}}</td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+
+</body>
+</html>
+
