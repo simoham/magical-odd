@@ -1,6 +1,6 @@
 from bottle import route, run, template, jinja2_template, jinja2_view
 from magical import generate_magic_square_odd
-import json, platform
+import json, platform, time
 
 @route('/magic/<dim:int>')
 @jinja2_view('index.html')
@@ -9,7 +9,11 @@ def index(dim):
     if dim % 2 == 0 :
         return "Doesnt work for even"
 
+    start_time = time.perf_counter()
     square = generate_magic_square_odd(dim)
+    end_time = time.perf_counter()
+    elapsed_time = end_time - start_time
+
     print(f"Magic Square of order {dim}:\n{square}")
 
     # The magic constant (sum of rows/cols/diagonals) can be verified:
@@ -18,7 +22,7 @@ def index(dim):
 
     #return template('{{square}}!', square=square)
     message = {"magic":square.tolist()}
-    return {'message':message, 'n':dim, 'hostname':platform.node()}
+    return {'message':message, 'n':dim, 'hostname':platform.node(), 'time':elapsed_time}
 
 @route('/magic/json/<dim:int>')
 def index(dim):
