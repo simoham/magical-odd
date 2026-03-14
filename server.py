@@ -1,6 +1,6 @@
 from bottle import route, run, template, jinja2_template, jinja2_view
 from magical import generate_magic_square_odd
-import json
+import json, platform
 
 @route('/magic/<dim:int>')
 @jinja2_view('index.html')
@@ -18,7 +18,7 @@ def index(dim):
 
     #return template('{{square}}!', square=square)
     message = {"magic":square.tolist()}
-    return {'message':message, 'n':dim}
+    return {'message':message, 'n':dim, 'hostname':platform.node()}
 
 @route('/magic/json/<dim:int>')
 def index(dim):
