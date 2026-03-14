@@ -10,12 +10,12 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 8075
-    targetPort: 8000
+  - port: 8475
+    targetPort: 8080
     nodePort: 30024
   selector:
     app: magiclsquare
----
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -32,7 +32,7 @@ spec:
         app: magiclsquare
     spec:
       containers:
-        - image: localhost:5000/magicalodd:v1.1
+      - image: localhost:5000/magicalodd:v1.2
         name: magiclsquare
         ports:
         - containerPort: 80
